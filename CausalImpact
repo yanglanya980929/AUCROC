@@ -1,0 +1,36 @@
+> time.points <- seq.Date(as.Date("2014-01-01"), by = 1, length.out = 100)
+> data <- zoo(cbind(y, x1), time.points)
+> head(data)
+                  y       x1
+2014-01-01 105.2950 88.21513
+2014-01-02 105.8943 88.48415
+2014-01-03 106.6209 87.87684
+2014-01-04 106.1572 86.77954
+2014-01-05 101.2812 84.62243
+2014-01-06 101.4484 84.60650
+> pre.period <- as.Date(c("2014-01-01", "2014-03-11"))
+> post.period <- as.Date(c("2014-03-12", "2014-04-10"))
+> impact <- CausalImpact(data, pre.period, post.period)
+> plot(impact)
+Warning messages:
+1: Removed 100 rows containing missing values (geom_path). 
+2: Removed 200 rows containing missing values (geom_path). 
+> summary(impact)
+Posterior inference {CausalImpact}
+
+                         Average        Cumulative  
+Actual                   117            3511        
+Prediction (s.d.)        107 (0.36)     3196 (10.71)
+95% CI                   [106, 107]     [3174, 3217]
+                                                    
+Absolute effect (s.d.)   11 (0.36)      316 (10.71) 
+95% CI                   [9.8, 11]      [294.8, 337]
+                                                    
+Relative effect (s.d.)   9.9% (0.34%)   9.9% (0.34%)
+95% CI                   [9.2%, 11%]    [9.2%, 11%] 
+
+Posterior tail-area probability p:   0.001
+Posterior prob. of a causal effect:  99.8996%
+
+For more details, type: summary(impact, "report")
+
